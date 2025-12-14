@@ -1,25 +1,12 @@
-1	{
-     2	  "name": "ai-saju-cheonnyeon-jigi",
-     3	  "version": "1.0.0",
-     4	  "description": "AI 사주 천년지기 - 엔터프라이즈급 사주팔자 플랫폼",
-     5	  "main": "backend/server-modern.js",
-     6	  "scripts": {
-     7	    "start": "node backend/server-modern.js",
-     8	    "dev": "node backend/server-modern.js"
-     9	  },
-    10	  "keywords": ["saju", "fortune", "ai", "mongodb"],
-    11	  "author": "AI 사주 천년지기",
-    12	  "license": "MIT",
-    13	  "dependencies": {
-    14	    "express": "^4.18.2",
-    15	    "mongoose": "^8.0.0",
-    16	    "cors": "^2.8.5",
-    17	    "dotenv": "^16.3.1",
-    18	    "bcryptjs": "^2.4.3",
-    19	    "jsonwebtoken": "^9.0.2"
-    20	  },
-    21	  "engines": {
-    22	    "node": ">=18.0.0"
-    23	  }
-    24	}
-    25	
+{
+  "name": "ai-saju-cheonnyeon-jigi",
+  "version": "1.0.0",
+  "description": "AI 사주 천년지기",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Static site'"
+  },
+  "keywords": ["saju"],
+  "author": "AI 사주 천년지기",
+  "license": "MIT"
+}
