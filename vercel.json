@@ -1,0 +1,40 @@
+1	{
+     2	  "version": 2,
+     3	  "name": "ai-saju-cheonnyeon-jigi",
+     4	  "builds": [
+     5	    {
+     6	      "src": "backend/server-modern.js",
+     7	      "use": "@vercel/node"
+     8	    },
+     9	    {
+    10	      "src": "*.html",
+    11	      "use": "@vercel/static"
+    12	    },
+    13	    {
+    14	      "src": "css/**",
+    15	      "use": "@vercel/static"
+    16	    },
+    17	    {
+    18	      "src": "js/**",
+    19	      "use": "@vercel/static"
+    20	    }
+    21	  ],
+    22	  "routes": [
+    23	    {
+    24	      "src": "/api/(.*)",
+    25	      "dest": "/backend/server-modern.js"
+    26	    },
+    27	    {
+    28	      "src": "/tables/(.*)",
+    29	      "dest": "/backend/server-modern.js"
+    30	    },
+    31	    {
+    32	      "src": "/(.*)",
+    33	      "dest": "/$1"
+    34	    }
+    35	  ],
+    36	  "env": {
+    37	    "NODE_ENV": "production"
+    38	  }
+    39	}
+    40	
