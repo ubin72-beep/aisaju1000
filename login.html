@@ -12,28 +12,191 @@
     <script src="js/sentry-init.js"></script>
     
     <style>
-        .login-page { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, #1a1a1a 0%, #8b0000 100%); padding: 2rem 0; }
-        .login-container { max-width: 450px; margin: 0 auto; background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 10px 60px rgba(0,0,0,0.3); }
-        .login-header { text-align: center; margin-bottom: 2rem; }
-        .login-header h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #1a1a1a; }
-        .login-tabs { display: flex; margin-bottom: 2rem; border-bottom: 2px solid #eee; }
-        .tab-btn { flex: 1; padding: 1rem; background: none; border: none; font-weight: bold; cursor: pointer; color: #666; transition: all 0.3s; }
-        .tab-btn.active { color: #c41e3a; border-bottom: 3px solid #c41e3a; margin-bottom: -2px; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; }
-        .form-group input { width: 100%; padding: 1rem; border: 2px solid #eee; border-radius: 10px; font-size: 1rem; transition: all 0.3s; }
-        .form-group input:focus { outline: none; border-color: #c41e3a; }
-        .btn-submit { width: 100%; padding: 1.2rem; background: linear-gradient(135deg, #c41e3a, #8b0000); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(196,30,58,0.4); }
-        .divider { text-align: center; margin: 2rem 0; color: #999; }
-        .social-login { display: flex; gap: 1rem; }
-        .btn-social { flex: 1; padding: 1rem; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: all 0.3s; }
-        .btn-kakao { background: #FEE500; color: #000; }
-        .btn-naver { background: #03C75A; color: white; }
-        .links { text-align: center; margin-top: 1.5rem; }
-        .links a { color: #c41e3a; text-decoration: none; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .login-page { 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #8b0000 100%); 
+            padding: 2rem 1rem; 
+        }
+        .login-container { 
+            max-width: 450px; 
+            width: 100%;
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 20px; 
+            padding: 3rem 2rem; 
+            box-shadow: 0 10px 60px rgba(0,0,0,0.3); 
+        }
+        .login-header { 
+            text-align: center; 
+            margin-bottom: 2rem; 
+        }
+        .login-header h1 { 
+            font-size: 1.8rem; 
+            margin-bottom: 0.5rem; 
+            color: #1a1a1a; 
+        }
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .login-header .admin-link {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            color: #999;
+        }
+        .login-header .admin-link a {
+            color: #c41e3a;
+            text-decoration: none;
+        }
+        .login-header .admin-link a:hover {
+            text-decoration: underline;
+        }
+        .login-tabs { 
+            display: flex; 
+            margin-bottom: 2rem; 
+            border-bottom: 2px solid #eee; 
+        }
+        .tab-btn { 
+            flex: 1; 
+            padding: 1rem; 
+            background: none; 
+            border: none; 
+            font-weight: bold; 
+            font-size: 1rem;
+            cursor: pointer; 
+            color: #666; 
+            transition: all 0.3s; 
+        }
+        .tab-btn.active { 
+            color: #c41e3a; 
+            border-bottom: 3px solid #c41e3a; 
+            margin-bottom: -2px; 
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-group { 
+            margin-bottom: 1.5rem; 
+        }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+            font-weight: 600; 
+            color: #333; 
+            font-size: 0.95rem;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="tel"] { 
+            width: 100%; 
+            padding: 1rem; 
+            border: 2px solid #eee; 
+            border-radius: 10px; 
+            font-size: 1rem; 
+            transition: all 0.3s; 
+        }
+        .form-group input:focus { 
+            outline: none; 
+            border-color: #c41e3a; 
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+        }
+        .checkbox-group label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: normal;
+        }
+        .checkbox-group a {
+            color: #c41e3a;
+            text-decoration: none;
+        }
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+        .btn-submit { 
+            width: 100%; 
+            padding: 1.2rem; 
+            background: linear-gradient(135deg, #c41e3a, #8b0000); 
+            color: white; 
+            border: none; 
+            border-radius: 50px; 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
+        .btn-submit:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 30px rgba(196,30,58,0.4); 
+        }
+        .divider { 
+            text-align: center; 
+            margin: 2rem 0; 
+            color: #999; 
+            font-size: 0.9rem;
+        }
+        .social-login { 
+            display: flex; 
+            gap: 1rem; 
+        }
+        .btn-social { 
+            flex: 1; 
+            padding: 1rem; 
+            border-radius: 10px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 0.95rem;
+            transition: all 0.3s; 
+        }
+        .btn-social:hover {
+            transform: translateY(-2px);
+        }
+        .btn-kakao { 
+            background: #FEE500; 
+            color: #000; 
+        }
+        .btn-naver { 
+            background: #03C75A; 
+            color: white; 
+        }
+        .links { 
+            text-align: center; 
+            margin-top: 1.5rem; 
+            font-size: 0.9rem;
+        }
+        .links a { 
+            color: #c41e3a; 
+            text-decoration: none; 
+            margin: 0 0.5rem;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+            .login-header h1 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -42,9 +205,9 @@
             <div class="login-header">
                 <h1><i class="fas fa-yin-yang"></i> AI 사주 천년지기</h1>
                 <p>일반 회원 로그인</p>
-                <p style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">
+                <p class="admin-link">
                     <i class="fas fa-info-circle"></i> 관리자이신가요? 
-                    <a href="admin-login.html" style="color: #fff; text-decoration: underline;">관리자 로그인 페이지로 이동</a>
+                    <a href="admin-login.html">관리자 로그인 페이지로 이동</a>
                 </p>
             </div>
 
@@ -57,25 +220,33 @@
             <div id="loginTab" class="tab-content active">
                 <form id="loginForm" onsubmit="handleLogin(event)">
                     <div class="form-group">
-                        <label>이메일</label>
-                        <input type="email" placeholder="example@email.com" required>
+                        <label><i class="fas fa-envelope"></i> 이메일</label>
+                        <input type="email" id="login-email" placeholder="example@email.com" required>
                     </div>
                     <div class="form-group">
-                        <label>비밀번호</label>
-                        <input type="password" placeholder="비밀번호 입력" required>
+                        <label><i class="fas fa-lock"></i> 비밀번호</label>
+                        <input type="password" id="login-password" placeholder="비밀번호 입력" required>
                     </div>
-                    <button type="submit" class="btn-submit">로그인</button>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sign-in-alt"></i> 로그인
+                    </button>
                 </form>
 
                 <div class="divider">또는</div>
 
                 <div class="social-login">
-                    <button class="btn-social btn-kakao"><i class="fab fa-kickstarter"></i> 카카오</button>
-                    <button class="btn-social btn-naver">N 네이버</button>
+                    <button class="btn-social btn-kakao" onclick="alert('카카오 로그인 준비 중입니다.')">
+                        <i class="fab fa-kickstarter"></i> 카카오
+                    </button>
+                    <button class="btn-social btn-naver" onclick="alert('네이버 로그인 준비 중입니다.')">
+                        N 네이버
+                    </button>
                 </div>
 
                 <div class="links">
-                    <a href="#">비밀번호 찾기</a> | <a href="#">이메일 찾기</a>
+                    <a href="#" onclick="alert('비밀번호 찾기 기능 준비 중입니다.'); return false;">비밀번호 찾기</a>
+                    <span>|</span>
+                    <a href="#" onclick="alert('이메일 찾기 기능 준비 중입니다.'); return false;">이메일 찾기</a>
                 </div>
             </div>
 
@@ -83,25 +254,37 @@
             <div id="signupTab" class="tab-content">
                 <form id="signupForm" onsubmit="handleSignup(event)">
                     <div class="form-group">
-                        <label>이름</label>
-                        <input type="text" placeholder="홍길동" required>
+                        <label><i class="fas fa-user"></i> 이름</label>
+                        <input type="text" id="signup-name" placeholder="홍길동" required>
                     </div>
                     <div class="form-group">
-                        <label>이메일</label>
-                        <input type="email" placeholder="example@email.com" required>
+                        <label><i class="fas fa-envelope"></i> 이메일</label>
+                        <input type="email" id="signup-email" placeholder="example@email.com" required>
                     </div>
                     <div class="form-group">
-                        <label>비밀번호</label>
-                        <input type="password" placeholder="8자 이상 입력" required minlength="8">
+                        <label><i class="fas fa-lock"></i> 비밀번호</label>
+                        <input type="password" id="signup-password" placeholder="8자 이상 입력" required minlength="8">
                     </div>
                     <div class="form-group">
-                        <label>비밀번호 확인</label>
-                        <input type="password" placeholder="비밀번호 재입력" required minlength="8">
+                        <label><i class="fas fa-lock"></i> 비밀번호 확인</label>
+                        <input type="password" id="signup-password-confirm" placeholder="비밀번호 재입력" required minlength="8">
                     </div>
                     <div class="form-group">
-                        <label><input type="checkbox" required> 이용약관 및 개인정보처리방침에 동의합니다</label>
+                        <label><i class="fas fa-phone"></i> 전화번호 (선택사항)</label>
+                        <input type="tel" id="signup-phone" placeholder="010-1234-5678">
                     </div>
-                    <button type="submit" class="btn-submit">회원가입</button>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms-agree" required>
+                        <label for="terms-agree">
+                            <a href="terms.html" target="_blank">이용약관</a> 및 
+                            <a href="privacy.html" target="_blank">개인정보처리방침</a>에 동의합니다
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-user-plus"></i> 회원가입
+                    </button>
                 </form>
             </div>
         </div>
@@ -110,70 +293,89 @@
     <script src="js/auth.js"></script>
     <script>
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+            const tabs = document.querySelectorAll('.tab-btn');
             
             if (tab === 'login') {
-                document.querySelector('.tab-btn:first-child').classList.add('active');
-                document.getElementById('loginTab').classList.add('active');
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
             } else {
-                document.querySelector('.tab-btn:last-child').classList.add('active');
-                document.getElementById('signupTab').classList.add('active');
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
             }
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = e.target[0].value;
-            const password = e.target[1].value;
+        function handleLogin(event) {
+            event.preventDefault();
             
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // auth.js의 login 함수 사용
             const result = login(email, password);
             
             if (result.success) {
-                alert(result.message);
+                alert(result.message || '로그인 되었습니다!');
+                // 이전 페이지로 돌아가거나 메인으로 이동
                 const returnUrl = sessionStorage.getItem('returnUrl') || 'index.html';
                 sessionStorage.removeItem('returnUrl');
                 window.location.href = returnUrl;
             } else {
-                alert(result.message);
+                alert(result.message || '로그인에 실패했습니다.');
             }
         }
 
-        function handleSignup(e) {
-            e.preventDefault();
-            const name = e.target[0].value;
-            const email = e.target[1].value;
-            const password = e.target[2].value;
-            const confirmPassword = e.target[3].value;
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-password-confirm').value;
+            const phone = document.getElementById('signup-phone').value;
             
             if (password !== confirmPassword) {
                 alert('비밀번호가 일치하지 않습니다.');
                 return;
             }
             
-            const result = register({
-                email,
-                password,
-                name,
-                phone: '',
+            // auth.js의 register 함수 사용
+            const userData = {
+                email: email,
+                password: password,
+                name: name,
+                phone: phone || '',
                 birthDate: null,
                 birthTime: null,
                 gender: null,
                 calendarType: 'solar'
-            });
+            };
+            
+            const result = register(userData);
             
             if (result.success) {
-                alert(result.message);
+                alert(result.message || '회원가입이 완료되었습니다!');
+                // 자동 로그인
                 login(email, password);
                 window.location.href = 'index.html';
             } else {
-                alert(result.message);
+                alert(result.message || '회원가입에 실패했습니다.');
             }
         }
 
-        if (isLoggedIn()) {
-            window.location.href = 'index.html';
-        }
+        // 페이지 로드 시 이미 로그인되어 있으면 메인으로 리다이렉트
+        window.addEventListener('DOMContentLoaded', function() {
+            if (typeof isLoggedIn === 'function' && isLoggedIn()) {
+                const returnUrl = sessionStorage.getItem('returnUrl') || 'index.html';
+                sessionStorage.removeItem('returnUrl');
+                window.location.href = returnUrl;
+            }
+        });
     </script>
 </body>
 </html>
